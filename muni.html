@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type= "text/css"  href="style.css">
+    <title>Dictionary application</title>
+</head>
+<body>
+    
+<div class="header">
+    <h1>English Dictionary</h1>
+</div>
+
+<div class="wrapper">
+<div class="words">
+    <input type="text" id="search" placeholder="search ...">
+    <button onclick="search()">Go</button>
+
+    <UL id="word_list">
+        <!-- <li>apple</li>
+        <li>ball</li>
+        <li>banana</li>
+        <li>apple</li>
+        <li>ball</li>
+        <li>banana</li> -->
+    </UL>
+
+</div>
+
+
+
+
+<div class="word">
+    <h3 id="word_text"></h3>
+    <p id="definition"></p>
+    <hr>
+
+
+    <h3>Related words:</h3>
+    <li id="related"></li>
+
+</div>
+
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    var dictionary = [
+        {
+            word:"apple",
+            def:"ፖም ጣፋጭ ፍራፍሬ A round fruit ",
+            rel:["mango","banana","orange"]
+        },
+        {
+            word:"baby",
+            def:"ሕፃን Aa very young child ",
+            rel:["child","toddler","teen"]
+        },
+        {
+            word:"car",
+            def:"መኪና a four-wheeled road vehicle ",
+            rel:["bus","bycycle","truck"]
+        },
+        {
+            word:"computer",
+            def:"ኮምፒውተር An electronic device ",
+            rel:["laptop","tablet","palmtop"]
+        },
+        {
+            word:"mosquito",
+            def:"ትንኝ An insect ",
+            rel:["flies","bee","worm"]
+        },
+        {
+            word:"cat",
+            def:"ድመት  pet and for catching rats and mice ",
+            rel:["dog","lion","rat"]
+        },
+        {
+            word:"dog",
+            def:"ውሻ a highly variable domestic mammal ",
+            rel:["cat","wolf","fox"]
+        },
+        {
+            word:"girl",
+            def:"ሴት ልጅ a female child from birth to adulthood ",
+            rel:["boy","woman","daughter"]
+        },
+        {
+            word:"boy",
+            def:"ወንድ ልጅ a male child from birth to adulthood ",
+            rel:["girl","man","son"]
+        }
+
+    ];
+       //  fill the dictionary with words በቃላት ሙዪ 
+        init = function() {
+            for (var i =0; i < dictionary.length; i++) {
+                
+            document.getElementById('word_list').innerHTML += "<li onclick='show(" + i + ")'>" + dictionary[i].word + "</li>"; 
+
+            }
+        }
+
+        // call the init fuction, when the page load syareg
+init();
+
+// to display a word, it's definition and related words
+
+show = function(i){
+document.getElementById('word_text').innerHTML = dictionary[i].word;
+document.getElementById('definition').innerHTML = dictionary[i].def;
+
+var list = "";
+for (var j = 0; j < dictionary[i].rel.length; j++) {
+    list += "<li>" + dictionary[i].rel[j] + "</li>";
+    document.getElementById('related').innerHTML = list;
+    
+}
+
+
+}
+// show first word in the dictionary page
+show(0);
+// search function
+search =  function(){
+    query = document.getElementById('search').value;
+
+    if(query == ""){
+        return;
+    }
+    found = -1; 
+
+    for (var i = 0; i < dictionary.length; i++) {
+        if (query== dictionary[i].word) {
+            found = i;
+            break;
+        }else{
+            document.getElementById('word_text').innerHTML = "Word not found";
+            document.getElementById('definition').innerHTML = "The word you entered in not found in our dictionary";
+            document.getElementById('related').innerHTML = "No related words";
+        }   
+        
+    }
+    if (found >=0){
+        show(found);
+    }
+}
+
+
+
+</script>
